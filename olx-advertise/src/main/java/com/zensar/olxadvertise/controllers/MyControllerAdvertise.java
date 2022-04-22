@@ -94,6 +94,20 @@ public class MyControllerAdvertise {
 			return null;
 		}
 		
+		@GetMapping("advertise/{postid}")
+		public Advertise getAdvertise(@PathVariable long postid,@RequestHeader("anand") String token) {
+			if(token.equals("anand123")) {
+				for(Advertise advertise: advertiselist) {
+					if(advertise.getCategoryId()==postid) {
+						return advertise;
+					}else {
+						return null;
+					}
+				}
+			}
+			return null;
+		}
+		
 		
 	
 }
