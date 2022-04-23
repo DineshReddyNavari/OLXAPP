@@ -54,16 +54,16 @@ public class MyControllerAdvertise {
 
 	@GetMapping(value = "/user/advertise", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
-	public List<Advertise> getAllAdvertisesByUser(@RequestHeader("auth-token") String token) {
+	public List<Advertise> getAllAdvertisesByUser(@RequestHeader("anand") String token) {
 		return advertiseservice.getAllAdvertises();
 	}
 	@GetMapping(value="/user/advertise/{postId}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-	public Advertise getSpecificAdvertise(@PathVariable int postId,@RequestHeader("auth-token")String token)
+	public Advertise getSpecificAdvertise(@PathVariable int postId,@RequestHeader("anand")String token)
 	{
 		return advertiseservice.getAdvertise(postId, token);
 	}
 	@DeleteMapping("/user/advertise/{postId}")
-	public boolean deleteSpecificAdvertise(@PathVariable int postId,@RequestHeader("auth-token") String token)
+	public boolean deleteSpecificAdvertise(@PathVariable int postId,@RequestHeader("anand") String token)
 	{
 		return advertiseservice.deleteAdvertise(postId, token);
 	}
@@ -78,7 +78,7 @@ public class MyControllerAdvertise {
 		return advertiseservice.searchAdvertise();
 	}
 	@GetMapping("/advertise/{postId2}")
-	public List<Advertise> getAllAdvertises(@PathVariable int postId2,@RequestHeader ("auth-token")String token)
+	public List<Advertise> getAllAdvertises(@PathVariable int postId2,@RequestHeader ("anand")String token)
 	{
 		return advertiseservice.getAllAdvertises();
 	}
