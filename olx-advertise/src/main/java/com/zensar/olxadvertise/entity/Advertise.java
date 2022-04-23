@@ -13,5 +13,9 @@ public class Advertise {
 	private long price;
 	private String description;
 	private int categoryId;
+	private String username;
+	private int createddate;
+	private String status;
+	
 
 }
