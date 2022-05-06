@@ -1,4 +1,4 @@
-package com.zesar.olxadvertise.swagger;
+package com.zensar.olxadvertise.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
