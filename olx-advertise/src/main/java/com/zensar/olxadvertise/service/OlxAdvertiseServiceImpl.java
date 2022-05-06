@@ -1,132 +1,100 @@
 package com.zensar.olxadvertise.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.zensar.olxadvertise.dto.AdvertiseDto;
 import com.zensar.olxadvertise.entity.Advertise;
+import com.zensar.olxadvertise.exception.InvalidAdvertiseIdException;
+@Service
+@Component
+public class OlxAdvertiseServiceImpl implements OlxAdvertiseService {
+	@Autowired
+	 public com.zensar.olxadvertise.repository.OlxAdvertiseRepository advertiseRepository;
 
-public class OlxAdvertiseServiceImpl implements OlxAdvertiseService{
-	static List<Advertise> advertiselist= new ArrayList<Advertise>();
-	static {
-		advertiselist.add(new Advertise("laptopsale", 50000, "intel core 3 Sony Vaio", 1, "anand", 22/4/2022, "OPEN"));
-	}
-
+	@Autowired 
+	ModelMapper modelMapper;
 	@Override
 	public List<Advertise> getAllAdvertises() {
-		// TODO Auto-generated method stub
-		return advertiselist;
+		
+		return advertiseRepository.findAll();
 	}
 
 	@Override
-	public Advertise createStock(Advertise advertise, String token) {
-		if(token.equals(token)) {
-			advertiselist.add(advertise);
+	public Advertise createAdvertise(Advertise advertise, String token) {
+		
+		return advertiseRepository.save(advertise);
+	}
+
+	@Override
+	public Advertise getAdvertise(long categoryId) throws InvalidAdvertiseIdException{
+		
+		Advertise byId = advertiseRepository.getById(categoryId);
+		return getAdvertise(categoryId);
+	}
+
+	@Override
+	public AdvertiseDto updateAdvertise(long categoryId, Advertise advertise) throws InvalidAdvertiseIdException{
+		AdvertiseDto advertisedto = new AdvertiseDto();
+		Advertise advertise1 = new Advertise();
+		if(advertise1!=null) {
+			advertise1.getCategoryId();
+			advertise1.getTitle();
+			advertise1.getCreateddate();
+			advertise1.getDescription();
+			advertise1.getPrice();
+			advertise1.getStatus();
+			advertise1.getUsername();
+			return modelMapper.map(advertise,AdvertiseDto.class);
 		}
-		return null;
-	}
-
-	@Override
-	public Advertise getAdvertise(long id) {
-		// TODO Auto-generated method stub
-	for(Advertise advertise :advertiselist) {
-		if(advertise.getCategoryId()==id) {
-			return advertise;
-		}
-	}
-	return null;
-	}
-
-	@Override
-	public Advertise updateStock(int id, Advertise advertise) {
-		// TODO Auto-generated method stub
-		Advertise availableadvertise = getAdvertise(id);
-		availableadvertise.setCategoryId(advertise.getCategoryId());
-		availableadvertise.setTitle(advertise.getTitle());
-		availableadvertise.setDescription(advertise.getDescription());
-		availableadvertise.setCreateddate(advertise.getCreateddate());
-		availableadvertise.setPrice(advertise.getPrice());
-		availableadvertise.setUsername(advertise.getUsername());
-		availableadvertise.setStatus(advertise.getStatus());
-		return null;
+		return advertisedto;
+		
+		
 	}
 
 	@Override
 	public List<Advertise> getAllAdvertise(String token) {
-		if(token.equals("anand123")) {
 		// TODO Auto-generated method stub
-		return advertiselist;
-	}
-		else {
-			return null;
-		}
+		return advertiseRepository.findAll();
 	}
 
 	@Override
-	public Advertise getAdvertise(int postId, String token) {
-		if(token.equals("anand123")) {
-			for(Advertise advertise:advertiselist) {
-				if(advertise.getCategoryId()==postId) {
-					return advertise;
-				}
-			}
-		}
-		return null;
+	public Advertise getAdvertise(long categoryId, String token) throws InvalidAdvertiseIdException {
+		// TODO Auto-generated method stub
+		return advertiseRepository.findById(categoryId).get();
 	}
 
 	@Override
-	public boolean deleteAdvertise(int postId1, String token) {
-		if(token.equals("anand123")) {
-			for(Advertise advertise: advertiselist) {
-				if(advertise.getCategoryId()==postId1) {
-					advertiselist.remove(advertise);
-					return true;
-				}
-			}
-		}
-		return false;
+	public boolean deleteAdvertise(long categoryId, String token) throws InvalidAdvertiseIdException {
+		advertiseRepository.deleteById(categoryId);
+		return true;
 	}
 
 	@Override
-	public Advertise filterBasedAdvertise() {
-		String filterText = "open";
-		Optional<Advertise> list = advertiselist.stream().filter(criteria -> criteria.toString().toLowerCase().contains(filterText)).findAny();
-		if(list.isPresent())
-		{
-			return list.get();
-		}
-		else
-		{
-			return null;
-		}
-		}
+	public List<AdvertiseDto> filterBasedAdvertise(@PathVariable String filter) {
+		List<AdvertiseDto> ad = advertiseRepository.filterBasedAdvertise(filter);
 	
+		return ad;
+		
+		
+			
+	}
 
 	@Override
 	public Advertise searchAdvertise() {
-		String searchText = "closed";
-		Optional<Advertise> findAny = advertiselist.stream().filter(criteria -> criteria.toString().toLowerCase().contains(searchText)).findAny();
-		if(findAny.isPresent())
-		{
-			return findAny.get();
-		}
-		else
-		{
+		
 		return null;
-		}
 	}
 
 	@Override
-	public List<Advertise> getAllAdvertises(int postId2, String token) {
-		if(token.equals("anand123")) {
-			for(Advertise advertise:advertiselist) {
-				if(advertise.getCategoryId()==postId2) {
-					return advertiselist;
-				}
-			}
-		}
-		return null;
+	public List<AdvertiseDto> findAdvertiseByStatusOrTitle(String text) {
+		
+		return advertiseRepository.findAdvertiseByStatusOrTitle(text);
 	}
-	
 
 }

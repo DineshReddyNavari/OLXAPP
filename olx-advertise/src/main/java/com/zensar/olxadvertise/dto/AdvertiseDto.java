@@ -1,11 +1,12 @@
-package com.zensar.olxadvertise.entity;
+package com.zensar.olxadvertise.dto;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.context.annotation.ComponentScan;
+
+import com.zensar.olxadvertise.entity.Advertise;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +16,7 @@ import lombok.NoArgsConstructor;
 @ComponentScan
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Advertise {
+public class AdvertiseDto {
 	private String title;
 	private long price;
 	private String description;
@@ -26,6 +26,5 @@ public class Advertise {
 	private String username;
 	private int createddate;
 	private String status;
-	
 
 }

@@ -38,10 +38,6 @@ public class MyControllerCategory {
 	public List<Status> getAllStatus() {
 		return status;
 	}
-	@PostMapping("/advertise")
-	public List<Status> createStatus(){
-		 return null;
-		
-	}
+	
 
 }

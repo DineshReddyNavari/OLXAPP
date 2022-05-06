@@ -2,18 +2,24 @@ package com.zensar.olxadvertise.service;
 
 import java.util.List;
 
-import com.zensar.olxadvertise.entity.Advertise;
+import org.springframework.stereotype.Service;
 
+import com.zensar.olxadvertise.dto.AdvertiseDto;
+import com.zensar.olxadvertise.entity.Advertise;
+import com.zensar.olxadvertise.exception.InvalidAdvertiseIdException;
+@Service
 public interface OlxAdvertiseService {
 	public List<Advertise> getAllAdvertises();
-	public Advertise createStock(Advertise advertise,String token);
-	public Advertise getAdvertise(long id);
-	public Advertise updateStock(int id,Advertise advertise);
+	public Advertise createAdvertise(Advertise advertise,String token);
+	public Advertise getAdvertise(long categoryId) throws InvalidAdvertiseIdException;
+	public AdvertiseDto updateAdvertise(long categoryId,Advertise advertise) throws InvalidAdvertiseIdException;
 	public List<Advertise> getAllAdvertise(String token);
-	public Advertise getAdvertise(int postId,String token);
-	public boolean deleteAdvertise(int postId1,String token);
-	public Advertise filterBasedAdvertise();
+	public Advertise getAdvertise(long categoryId,String token) throws InvalidAdvertiseIdException;
+	public boolean deleteAdvertise(long categoryId,String token) throws InvalidAdvertiseIdException;
+	public List<AdvertiseDto> filterBasedAdvertise(String filter);
 	public Advertise searchAdvertise();
-	public List<Advertise> getAllAdvertises(int postId2,String token);
+	public List<AdvertiseDto> findAdvertiseByStatusOrTitle(String text);
+	
+	
 
 }
