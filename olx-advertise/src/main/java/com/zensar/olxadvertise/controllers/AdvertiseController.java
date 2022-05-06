@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zensar.olxadvertise.dto.AdvertiseDto;
@@ -23,18 +24,19 @@ import com.zensar.olxadvertise.service.OlxAdvertiseService;
 @RestController
 @ComponentScan
 @Component
+@RequestMapping("/advertise")
 public class AdvertiseController {
 
 	@Autowired
 	public OlxAdvertiseService advertiseService;
 
-	@GetMapping("/advertise")
+	@GetMapping(value = "/advertise",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public List<Advertise> getAllAdvertises() {
 
 		return advertiseService.getAllAdvertises();
 	}
 
-	@GetMapping("/advertise/{categoryId}")
+	@GetMapping(value = "/advertise/{categoryId}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public Advertise getAdvertise(@PathVariable long categoryId) throws InvalidAdvertiseIdException {
 
 		return advertiseService.getAdvertise(categoryId);
@@ -47,30 +49,30 @@ public class AdvertiseController {
 
 	}
 	
-	@GetMapping("/user/advertise/")
+	@GetMapping(value = "/user/advertise/",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public List<Advertise> getAllAdvertise(@RequestHeader("anand") String token) {
 		
 		return advertiseService.getAllAdvertise("anand123");
 	}
 	
-	@GetMapping("/user/advertise/{categoryId}")
+	@GetMapping(value = "/user/advertise/{categoryId}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public Advertise getAdvertise(@PathVariable long categoryId,@RequestHeader("anand") String token) throws InvalidAdvertiseIdException {
 		
 		return advertiseService.getAdvertise(categoryId, "anand123");
 	}
 	
-	@GetMapping("/advertise/search/{filter}")
+	@GetMapping(value = "/advertise/search/{filter}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public List<AdvertiseDto> filterBasedAdvertise(@PathVariable String filter){
 		return advertiseService.filterBasedAdvertise(filter);
 		
 	}
-	@GetMapping("/advertise/search/{text}")
+	@GetMapping(value = "/advertise/search/{text}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public List<AdvertiseDto> findAdvertiseByStatusOrTitle(String text){
 		return advertiseService.findAdvertiseByStatusOrTitle(text);
 		
 	}
 	
-	@PostMapping("/advertise/{categoryId}")
+	@PostMapping(value = "/advertise/{categoryId}",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public AdvertiseDto updateAdvertiseDto(@PathVariable long categoryId,@RequestBody Advertise advertise) throws InvalidAdvertiseIdException {
 		
 		
