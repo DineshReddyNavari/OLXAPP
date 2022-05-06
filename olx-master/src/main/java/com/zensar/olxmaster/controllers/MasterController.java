@@ -3,15 +3,23 @@ package com.zensar.olxmaster.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zensar.olxmaster.entity.Category;
 import com.zensar.olxmaster.entity.Status;
+import com.zensar.olxmaster.service.MasterService;
 
 @RestController
-public class MyControllerCategory {
+@RequestMapping("/advertise")
+public class MasterController {
+	@Autowired
+	public MasterService masterService;
+
 	static List<Category> category = new ArrayList<Category>();
 	static List<Status> status = new ArrayList<Status>();
 	static {
@@ -30,14 +38,14 @@ public class MyControllerCategory {
 		status.add(new Status(5, "open"));
 	}
 
-	@GetMapping("/advertise/category")
+	@GetMapping(value = "/advertise/category",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public List<Category> getAllCategory() {
-		return category;
+		return masterService.getCategories();
 	}
-	@GetMapping("/advertise/status")
+
+	@GetMapping(value = "/advertise/status",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public List<Status> getAllStatus() {
-		return status;
+		return masterService.getStatus();
 	}
-	
 
 }
