@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Status {
+public class Status  {
 	
 	private int id;
 	private String status;
+
 
 }
